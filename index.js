@@ -11,10 +11,18 @@ app.get("/", (req, res) => {
     res.render("Home.ejs"); 
 }); 
 
+
 app.get("/ig/:username", (req, res) => {
-    let { username } = req.params;
-    res.render("instagram.ejs", { username });
+    let {username} = req.params;
+    const instaData  = require("./data.json");
+    const data = instaData[username];
+    if(data) {
+        res.render("instagram.ejs", { data });
+    } else {
+        res.render("error.ejs");
+    }
 });
+
 
 app.get("/hello", (req, res) => {
     res.send("hello");
